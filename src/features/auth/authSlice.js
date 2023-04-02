@@ -6,6 +6,7 @@ export const authSlice = createSlice({
   initialState: {
     user: {},
     isLoggedIn: false,
+    errorMsg: "",
   },
   reducers: {
     getUserLoggedIn: (state) => {
@@ -35,9 +36,11 @@ export const authSlice = createSlice({
 
         state.user = action.payload;
         state.isLoggedIn = true;
+        state.errorMsg = "";
       } else {
         state.user = null;
         state.isLoggedIn = false;
+        state.errorMsg = "Login failed. Please try again!";
       }
     },
     logout: (state) => {

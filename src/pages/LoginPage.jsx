@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { errorMsg } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,8 +33,13 @@ function LoginPage() {
                     <div className="text-slate-400 text-2xl text-center my-3 font-bold">
                       Login
                     </div>
+                    {errorMsg && (
+                      <div className="p-2 bg-red-400 rounded text-white">
+                        {errorMsg}
+                      </div>
+                    )}
                     <form onSubmit={handleSubmit}>
-                      <div className="relative w-full mb-3">
+                      <div className="relative w-full my-3">
                         <label
                           className="block uppercase text-slate-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
